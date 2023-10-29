@@ -38,7 +38,7 @@ def resolver_tsp():
     result_label.config(text="Calculando...")
     root.update_idletasks()
 
-    ciudad_inicial = 0  # Puedes cambiar la ciudad de inicio si lo deseas
+    ciudad_inicial = 0
     visitadas = [False] * n
     camino = [ciudad_inicial]
     visitadas[ciudad_inicial] = True
@@ -69,9 +69,9 @@ def resolver_tsp():
             G.add_edge(i, j, weight=distancias[i][j])
 
     # Resolver el TSP
-    optimal_hamiltonian_path = camino  # Tu ciclo hamiltoniano ya está calculado
+    optimal_hamiltonian_path = camino
 
-    # Crear un grafo con un atributo 'selected' para las aristas
+
     H = G.copy()
     for u, v in G.edges():
         H[u][v]['selected'] = False
@@ -81,9 +81,9 @@ def resolver_tsp():
         H[u][v]['selected'] = True
         H[v][u]['selected'] = True
 
-    pos = nx.spring_layout(G)  # Configura la posición de los nodos
+    pos = nx.spring_layout(G)
 
-    # Dibuja el grafo con aristas seleccionadas en rojo
+    # Dibuja el grafo con aristas en rojo
     edge_colors = ['red' if H[u][v]['selected'] else 'black' for u, v in H.edges()]
     labels = nx.get_edge_attributes(H, "weight")
     nx.draw(H, pos, with_labels=True, node_size=500, font_size=10, font_color="black", edge_color=edge_colors)
