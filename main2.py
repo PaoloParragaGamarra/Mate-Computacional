@@ -3,6 +3,7 @@ from tkinter import messagebox
 import random
 import networkx as nx
 import matplotlib.pyplot as plt
+import heapq
 
 
 def generar_matriz(n):
@@ -48,10 +49,13 @@ def resolver_tsp():
         ciudad_mas_cercana = None
         distancia_minima = float("inf")
 
+        # Implementa el algoritmo de Prim (Mínimo Costo)
+        min_heap = []
         for ciudad in range(n):
-            if not visitadas[ciudad] and distancias[ciudad_actual][ciudad] < distancia_minima:
-                ciudad_mas_cercana = ciudad
-                distancia_minima = distancias[ciudad_actual][ciudad]
+            if not visitadas[ciudad]:
+                heapq.heappush(min_heap, (distancias[ciudad_actual][ciudad], ciudad))
+
+        ciudad_mas_cercana = heapq.heappop(min_heap)[1]
 
         camino.append(ciudad_mas_cercana)
         visitadas[ciudad_mas_cercana] = True
